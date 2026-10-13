@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Geo No – Block YouTube Shorts by Country | Free Chrome Extension</title>
+<meta name="description" content="Geo No is a free, open-source Chrome extension that skips or hides YouTube Shorts from countries you choose, e.g. block Indian Shorts. Private, no account, works in Chrome, Edge and Brave.">
+<link rel="canonical" href="https://addester.github.io/geo-no/">
+<link rel="icon" href="img/icon128.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Geo No – Block YouTube Shorts by Country">
+<meta property="og:description" content="Free Chrome extension that skips or hides YouTube Shorts from the countries you pick.">
+<meta property="og:url" content="https://addester.github.io/geo-no/">
+<meta property="og:image" content="https://addester.github.io/geo-no/img/blocked.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Geo No",
+  "description": "Chrome extension that blocks YouTube Shorts from countries you choose.",
+  "applicationCategory": "BrowserApplication",
+  "operatingSystem": "Chrome, Edge, Brave, Windows, macOS, Linux, ChromeOS",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "url": "https://addester.github.io/geo-no/",
+  "downloadUrl": "https://github.com/addester/geo-no/releases/latest",
+  "license": "https://opensource.org/licenses/MIT"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "How do I block YouTube Shorts from a specific country?",
+      "acceptedAnswer": { "@type": "Answer", "text": "YouTube has no built-in country filter. Install the free Geo No extension, choose the countries you don't want to see (for example India), and it skips or blurs matching Shorts as you scroll." } },
+    { "@type": "Question", "name": "Can I block Indian content on YouTube Shorts?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Geo No detects Indian Shorts using the channel's declared country, Indian scripts such as Devanagari, Tamil and Telugu, the spoken language, Hinglish words and hashtags like #mumbai or #desi." } },
+    { "@type": "Question", "name": "Does Geo No collect my data?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. There is no server or account. Settings stay in your browser, and the only requests go to YouTube and Google's YouTube Data API." } },
+    { "@type": "Question", "name": "Does it work in the YouTube app on my phone?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Not yet. Geo No works on youtube.com in Chrome, Edge, Brave and other Chromium browsers. An Android version is on the roadmap." } }
+  ]
+}
+</script>
+<style>
+:root {
+  --bg: #fbfaf8; --fg: #141414; --muted: #5d5d5d; --line: #e6e3de; --card: #ffffff;
+  --accent: #c8281e; --accent-fg: #ffffff; --soft: #f1eee9;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --bg: #111111; --fg: #f2f2f2; --muted: #a3a3a3; --line: #2a2a2a; --card: #191919; --accent: #ff5a4a; --accent-fg: #111; --soft: #1e1e1e; }
+}
+:root[data-theme="dark"] { --bg: #111111; --fg: #f2f2f2; --muted: #a3a3a3; --line: #2a2a2a; --card: #191919; --accent: #ff5a4a; --accent-fg: #111; --soft: #1e1e1e; }
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 17px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+a { color: inherit; }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; }
+.logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 19px; text-decoration: none; }
+.logo img { width: 30px; height: 30px; }
+nav .links a { margin-left: 20px; text-decoration: none; color: var(--muted); font-size: 15px; }
+nav .links a:hover { color: var(--fg); }
+.hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; align-items: center; padding: 48px 0 72px; }
+h1 { font-size: clamp(36px, 5.4vw, 60px); line-height: 1.04; letter-spacing: -0.035em; margin: 0 0 20px; }
+h1 em { font-style: normal; color: var(--accent); }
+.lede { font-size: 19px; color: var(--muted); margin: 0 0 28px; max-width: 34em; }
+.cta { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.btn { display: inline-block; padding: 13px 22px; border-radius: 10px; font-weight: 600; text-decoration: none; font-size: 16px; }
+.btn.primary { background: var(--fg); color: var(--bg); }
+.btn.primary:hover { opacity: .88; }
+.btn.ghost { border: 1px solid var(--line); }
+.btn.ghost:hover { background: var(--soft); }
+.fine { margin-top: 14px; font-size: 14px; color: var(--muted); }
+.shot { border-radius: 16px; overflow: hidden; border: 1px solid var(--line); background: #0f0f0f; aspect-ratio: 406 / 776; max-width: 380px; justify-self: center; width: 100%; position: relative; }
+.shot img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+section { padding: 64px 0; border-top: 1px solid var(--line); }
+h2 { font-size: clamp(26px, 3.4vw, 36px); letter-spacing: -0.02em; line-height: 1.15; margin: 0 0 12px; }
+.sub { color: var(--muted); margin: 0 0 36px; max-width: 40em; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 22px; }
+.card .n { font-size: 13px; font-weight: 700; color: var(--accent); letter-spacing: .08em; }
+.card h3 { margin: 6px 0 6px; font-size: 18px; }
+.card p { margin: 0; color: var(--muted); font-size: 15px; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+th, td { text-align: left; padding: 12px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; }
+.tablewrap { overflow-x: auto; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+.two img { width: 100%; border-radius: 12px; border: 1px solid var(--line); }
+ol.steps { padding-left: 22px; margin: 0; }
+ol.steps li { margin-bottom: 10px; }
+code { background: var(--soft); padding: 2px 6px; border-radius: 5px; font-size: .9em; }
+details { border-bottom: 1px solid var(--line); padding: 16px 0; }
+summary { cursor: pointer; font-weight: 600; font-size: 17px; }
+details p { color: var(--muted); margin: 10px 0 0; }
+footer { padding: 40px 0 56px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+@media (max-width: 820px) {
+  .hero, .two { grid-template-columns: 1fr; gap: 32px; }
+  .grid3 { grid-template-columns: 1fr; }
+  .shot { max-width: 360px; }
+  nav .links a:not(:last-child) { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <a class="logo" href="./"><img src="img/icon128.png" alt="">Geo No</a>
+    <div class="links"><a href="#how">How it works</a><a href="#install">Install</a><a href="#faq">FAQ</a><a href="https://github.com/addester/geo-no">GitHub</a></div>
+  </nav>
+
+  <header class="hero">
+    <div>
+      <h1>Block YouTube Shorts <em>by country.</em></h1>
+      <p class="lede">Geo No is a free browser extension that skips or hides Shorts from the countries you choose. Scroll your feed without content you didn't ask for.</p>
+      <div class="cta">
+        <a class="btn primary" href="https://github.com/addester/geo-no/releases/latest">Download free</a>
+        <a class="btn ghost" href="#install">Install guide</a>
+      </div>
+      <p class="fine">Chrome · Edge · Brave · Arc · Open source (MIT) · No account, no tracking</p>
+    </div>
+    <div class="shot"><img src="img/hero.png" alt="A YouTube Short from India hidden by Geo No, with Next Short, Show anyway and Allow this channel buttons"></div>
+  </header>
+
+  <section id="how">
+    <h2>How it works</h2>
+    <p class="sub">YouTube doesn't label videos with a country, and every Short comes from the same servers, so a normal website blocker can't help. Geo No checks each Short as it appears.</p>
+    <div class="grid3">
+      <div class="card"><div class="n">01</div><h3>Pick countries</h3><p>Choose any of 240+ countries and territories. Many people start with India, Pakistan or Bangladesh.</p></div>
+      <div class="card"><div class="n">02</div><h3>Geo No reads the clues</h3><p>Channel country, writing script, spoken language, Hinglish words and hashtags such as #mumbai or #desi.</p></div>
+      <div class="card"><div class="n">03</div><h3>Skip or blur</h3><p>Matching Shorts are skipped automatically, or blurred with "Show anyway" and "Allow this channel".</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>What it looks for</h2>
+    <p class="sub">Clues are combined into a confidence score. You choose how strict it is with Low, Medium or High sensitivity.</p>
+    <div class="tablewrap"><table>
+      <tr><th>Signal</th><th>Example</th><th>Strength</th></tr>
+      <tr><td>Channel's declared country</td><td><code>country: IN</code></td><td>Decisive</td></tr>
+      <tr><td>Writing script</td><td>Devanagari, Telugu, Tamil, Bengali, Thai, Hangul</td><td>Strong</td></tr>
+      <tr><td>Spoken language</td><td>Hindi, Tamil, Telugu, Marathi, Korean, Japanese</td><td>Strong</td></tr>
+      <tr><td>Romanised Hindi ("Hinglish")</td><td>bhai, yaar, kya, nahi</td><td>Medium</td></tr>
+      <tr><td>Hashtags and places</td><td>#mumbai #desi #bollywood #ipl</td><td>Medium</td></tr>
+    </table></div>
+  </section>
+
+  <section id="install">
+    <div class="two">
+      <div>
+        <h2>Install in 2 minutes</h2>
+        <ol class="steps">
+          <li>Download <code>geo-no-extension.zip</code> from the <a href="https://github.com/addester/geo-no/releases/latest">latest release</a> and unzip it.</li>
+          <li>Open <code>chrome://extensions</code> and turn on <b>Developer mode</b>.</li>
+          <li>Click <b>Load unpacked</b> and select the unzipped <code>extension</code> folder.</li>
+          <li>Choose countries on the settings page that opens.</li>
+          <li>Optional but recommended: add a free YouTube API key for much better accuracy. Step-by-step instructions are on the settings page.</li>
+        </ol>
+        <p class="fine">A one-click Chrome Web Store version is on the way.</p>
+      </div>
+      <img src="img/settings.png" alt="Geo No settings page: choose countries to block, skip or blur, sensitivity, YouTube API key">
+    </div>
+  </section>
+
+  <section id="faq">
+    <h2>Questions</h2>
+    <details open><summary>How do I block YouTube Shorts from a specific country?</summary><p>YouTube has no built-in country filter. Install Geo No, choose the countries you don't want to see, and it skips or blurs matching Shorts as you scroll.</p></details>
+    <details><summary>Can I block Indian content on YouTube Shorts?</summary><p>Yes. That's what Geo No was first built for. It detects Indian Shorts from the channel's country, Indian scripts (Devanagari, Tamil, Telugu, Gujarati and more), the spoken language, Hinglish words and hashtags.</p></details>
+    <details><summary>Is it accurate?</summary><p>With a free YouTube API key, very. Without one, it only sees titles and channel names, so creators who write in English and don't state a country can slip through. If something is blocked by mistake, click "Allow this channel".</p></details>
+    <details><summary>Does Geo No collect my data?</summary><p>No. There's no server and no account. Settings stay in your browser, and the only requests go to YouTube and Google's YouTube Data API. Read the <a href="privacy.html">privacy policy</a>.</p></details>
+    <details><summary>Does it work on my phone or in the YouTube app?</summary><p>Not yet. It works on youtube.com in Chrome, Edge, Brave and other Chromium browsers. Instagram Reels and an Android app are on the roadmap.</p></details>
+  </section>
+
+  <footer>
+    <span>Geo No · MIT licensed · by Aadi Juvekar</span>
+    <span><a href="https://github.com/addester/geo-no">GitHub</a> · <a href="privacy.html">Privacy</a> · <a href="https://github.com/addester/geo-no/issues">Report a problem</a></span>
+  </footer>
+</div>
+</body>
+</html>

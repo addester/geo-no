@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="ui.css">
+  <style>
+    body { width: 300px; padding: 16px; }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .stat { display: flex; gap: 12px; margin-bottom: 16px; }
+    .stat div { flex: 1; background: var(--soft); border-radius: 10px; padding: 10px 12px; }
+    .stat b { display: block; font-size: 22px; font-variant-numeric: tabular-nums; }
+    .row { margin-bottom: 14px; }
+    a.settings { display: block; text-align: center; padding: 9px; border: 1px solid var(--line); border-radius: 8px; color: inherit; text-decoration: none; }
+    a.settings:hover { background: var(--soft); }
+    .off { opacity: .45; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand"><img src="icons/icon48.png" alt=""><h1>Geo No</h1></div>
+    <label class="switch" title="On/off"><input type="checkbox" id="enabled"><span></span></label>
+  </header>
+  <div id="body">
+    <div class="stat">
+      <div><b id="blocked">0</b><small class="muted">blocked today</small></div>
+      <div><b id="checked">0</b><small class="muted">Shorts checked</small></div>
+    </div>
+    <div class="row">
+      <h2>Not watching from</h2>
+      <div class="chips" id="countries"></div>
+    </div>
+    <div class="row muted"><small id="modeLine"></small></div>
+  </div>
+  <a class="settings" href="options.html" target="_blank">Settings</a>
+  <script src="common.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
