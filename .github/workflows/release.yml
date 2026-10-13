@@ -1,7 +1,6 @@
 name: Release
+# Publish a release on GitHub (Releases → Draft a new release) and this attaches the zips.
 on:
-  push:
-    tags: ['v*']
   release:
     types: [published]
 permissions:
