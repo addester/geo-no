@@ -2,6 +2,8 @@ name: Release
 on:
   push:
     tags: ['v*']
+  release:
+    types: [published]
 permissions:
   contents: write
 jobs:
@@ -16,5 +18,7 @@ jobs:
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
-          files: dist/geo-no-extension.zip
+          files: |
+            dist/geo-no-extension.zip
+            dist/geo-no-store-upload.zip
           generate_release_notes: true
