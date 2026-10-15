@@ -1,0 +1,23 @@
+[
+  { "name": "declared IN", "meta": { "title": "Morning routine", "channelCountry": "IN" }, "block": true },
+  { "name": "Hindi title", "meta": { "title": "जब मम्मी ने पकड़ लिया 😂 #comedy", "channelTitle": "Funny Boyz" }, "block": true },
+  { "name": "Hinglish", "meta": { "title": "Bhai ye kya ho gaya yaar 😂 #shorts", "channelTitle": "Rohit Vlogs" }, "block": true },
+  { "name": "Telugu", "meta": { "title": "అమ్మ చేతి వంట #shorts", "channelTitle": "x" }, "block": true },
+  { "name": "India hashtags", "meta": { "title": "Street food tour #mumbai #streetfood #indianfood", "channelTitle": "Foodie" }, "block": true },
+  { "name": "audio hi (api)", "meta": { "title": "Wait for it", "audioLanguage": "hi", "channelTitle": "abc" }, "block": true },
+  { "name": "US english", "meta": { "title": "Trying the new McDonalds burger #shorts", "channelTitle": "Mike Eats" }, "block": false },
+  { "name": "US declared, english", "meta": { "title": "Gym fail lol", "channelCountry": "US" }, "block": false },
+  { "name": "English India word in sentence", "meta": { "title": "I tried Indian food for the first time", "channelTitle": "Jake", "channelCountry": "US" }, "block": false },
+  { "name": "Nepali audio", "meta": { "title": "नेपाली गीत", "audioLanguage": "ne", "channelCountry": "NP" }, "block": false },
+  { "name": "Korean", "meta": { "title": "오늘의 브이로그 #shorts" }, "block": false },
+  { "name": "Pakistan (blocking IN)", "meta": { "title": "Karachi street food #karachi #pakistan", "channelTitle": "PK eats" }, "block": false },
+  { "name": "IG location India", "meta": { "title": "Sunset vibes ✨", "channelTitle": "travelwithsam", "location": "Marine Drive, Mumbai" }, "block": true },
+  { "name": "IG Hindi audio title", "meta": { "title": "wait for end 😂", "audioTitle": "तेरे बिना ज़िंदगी", "channelTitle": "x" }, "block": true },
+  { "name": "IG Hinglish caption", "meta": { "title": "Jab bhai ne kya bola yaar 😂 #reels", "channelTitle": "rohan" }, "block": true },
+  { "name": "IG US location", "meta": { "title": "Coffee run", "channelTitle": "jess", "location": "Brooklyn, New York" }, "block": false },
+  { "name": "IG business country", "meta": { "title": "New drop", "channelCountry": "IN", "channelTitle": "brand" }, "block": true },
+  { "name": "Pakistan (blocking PK)", "countries": ["PK"], "meta": { "title": "Karachi street food #karachi #pakistan" }, "block": true },
+  { "name": "Brazil declared", "countries": ["BR", "IN"], "meta": { "title": "x", "channelCountry": "BR" }, "block": true },
+  { "name": "Mobile screen text, Hinglish", "meta": { "title": "rohit_vlogs\nBhai ye kya ho gaya yaar 😂\nOriginal audio" }, "block": true },
+  { "name": "Mobile screen text, English", "meta": { "title": "jess.nyc\nMorning coffee run in Brooklyn ☕\nTaylor Swift · Cruel Summer" }, "block": false }
+]

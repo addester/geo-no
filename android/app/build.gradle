@@ -1,0 +1,44 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'io.github.addester.geono'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'io.github.addester.geono'
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName '0.1.0'
+    }
+
+    // Open-source signing key, committed on purpose so every GitHub build is signed the same way
+    // and updates install over older versions. Set GEONO_KEYSTORE* env vars to use a private key.
+    signingConfigs {
+        release {
+            storeFile file(System.getenv('GEONO_KEYSTORE') ?: '../geo-no-release.keystore')
+            storePassword System.getenv('GEONO_KEYSTORE_PASSWORD') ?: 'geono-public'
+            keyAlias System.getenv('GEONO_KEY_ALIAS') ?: 'geono'
+            keyPassword System.getenv('GEONO_KEY_PASSWORD') ?: 'geono-public'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    lint {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}

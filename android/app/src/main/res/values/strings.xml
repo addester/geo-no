@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Geo No</string>
+    <string name="service_label">Geo No – Reels &amp; Shorts country filter</string>
+    <string name="service_description">Geo No reads the text that Instagram Reels and YouTube Shorts show on screen (caption, account name, audio name, hashtags) to guess which country a video is from. If it is from a country you chose to block, Geo No swipes to the next one or covers it. It only works inside the Instagram and YouTube apps, everything stays on your phone, and nothing is sent anywhere.</string>
+</resources>
