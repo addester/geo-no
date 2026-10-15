@@ -48,7 +48,7 @@ Report problems: https://github.com/addester/geo-no/issues
 
 **Graphic assets**
 - Store icon 128×128: `extension/icons/icon128.png`
-- Screenshots 1280×800: `docs/img/blocked.png`, `docs/img/settings.png`, `docs/img/api-key-steps.png`
+- Screenshots 1280×800 (in this order): `docs/img/blocked.png` (YouTube), `docs/img/blocked-instagram.png` (Instagram), `docs/img/settings.png`, `docs/img/api-key-steps.png`
 - Small promo tile 440×280: `store/promo-440x280.png`
 
 **Official URL / Homepage:** https://addester.github.io/geo-no/
