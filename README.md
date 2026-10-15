@@ -26,6 +26,7 @@ Tired of your Shorts or Reels feed being full of content from one country? Pick 
 - **Allow list:** mark a channel or Instagram account as fine and it's never blocked again.
 - **Private:** no account, no tracking, no server. Everything stays in your browser.
 - Works in **Chrome, Edge, Brave, Arc, Opera** and other Chromium browsers.
+- **On your phone:** an [Android app](#on-your-phone) that works inside the real Instagram and YouTube apps, and a [web app](https://addester.github.io/geo-no/app/) for iPhone and Android.
 
 It works like a website blocker or "de-addiction" app, but for **where content comes from** instead of which site it's on.
 
@@ -42,6 +43,18 @@ It works like a website blocker or "de-addiction" app, but for **where content c
 > Chrome Web Store listing coming soon. It will make installing a one-click job.
 
 <img src="docs/img/settings.png" width="640" alt="Geo No settings: choose countries to block, skip or blur, sensitivity">
+
+## On your phone
+
+**Android app (beta).** Filters Reels and Shorts inside the real Instagram and YouTube apps, entirely on the phone with no network requests.
+
+1. On your phone, download [`geo-no-android.apk`](https://github.com/addester/geo-no/releases/latest/download/geo-no-android.apk) and open it (allow "install unknown apps" for your browser if asked).
+2. Open Geo No, pick countries, tap **Open Accessibility settings** and switch Geo No on.
+3. On Android 13+, if the switch is greyed out: **App info → ⋮ → Allow restricted settings**, then try again.
+
+It uses Android's accessibility service to read the caption, account name and hashtags on screen, then swipes to the next video or covers it. If it stops recognising the Reels or Shorts screen after an app update, the **Last check** box in the app shows what it saw: paste that into an issue.
+
+**Web app (iPhone and Android).** [addester.github.io/geo-no/app](https://addester.github.io/geo-no/app/) is a YouTube Shorts feed with your blocked countries filtered out. Add a free YouTube API key once, then *Share → Add to Home Screen*. iPhone doesn't allow any app to look inside Instagram or YouTube, so this is the iPhone option (YouTube Shorts only).
 
 ## Get a free YouTube API key (recommended)
 
@@ -95,7 +108,8 @@ Geo No has no server and collects nothing. Settings, your API key and the channe
 - [ ] Chrome Web Store and Edge Add-ons listing
 - [ ] Instagram Reels in the home feed, and the "Account based in" country
 - [ ] Hide Shorts shelves on the YouTube home page and search results
-- [ ] Android app (Instagram Reels and YouTube Shorts)
+- [x] Android app (Instagram Reels and YouTube Shorts), beta
+- [x] Web app for iPhone and Android (YouTube Shorts feed)
 - [ ] Shared, opt-in channel→country database
 
 ## Contributing
@@ -106,7 +120,10 @@ Issues and pull requests are welcome. To work on it:
 git clone https://github.com/addester/geo-no.git
 cd geo-no
 node tests/classifier.test.js   # detection tests, no dependencies
+bash scripts/test-java.sh       # same cases against the Android port (needs a JDK)
 ```
+
+The Android APK is built by GitHub Actions on every push to `main` (see `.github/workflows/android.yml`); locally run `gradle assembleRelease` in `android/` with the Android SDK installed.
 
 Load the `extension/` folder with **Load unpacked**, then click ↻ on the extension card after each change.
 
@@ -116,7 +133,10 @@ Load the `extension/` folder with **Load unpacked**, then click ↻ on the exten
 | `extension/content.js` | YouTube: watches the Shorts player and reads the page |
 | `extension/content-instagram.js` | Instagram: watches Reels, reads caption / location / audio / bio |
 | `extension/background.js` | Fetches metadata, caches channels, applies the allow list, counts stats |
-| `extension/classifier.js` | Detection logic. Pure JS, testable in Node |
+| `extension/classifier.js` | Detection logic. Pure JS, testable in Node (copied to `docs/app/` for the web app) |
+| `android/` | Android app: `GeoNoService.java` (accessibility service), `Classifier.java` (Java port), `MainActivity.java` (settings) |
+| `docs/app/` | Web app (PWA) for iPhone and Android |
+| `tests/cases.json` | Detection cases shared by the JS and Java tests |
 | `extension/options.*`, `popup.*` | Settings page and toolbar popup |
 
 ## License

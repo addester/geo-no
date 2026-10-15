@@ -20,7 +20,7 @@
   "name": "Geo No",
   "description": "Chrome extension that blocks YouTube Shorts and Instagram Reels from countries you choose.",
   "applicationCategory": "BrowserApplication",
-  "operatingSystem": "Chrome, Edge, Brave, Windows, macOS, Linux, ChromeOS",
+  "operatingSystem": "Chrome, Edge, Brave, Windows, macOS, Linux, ChromeOS, Android, iOS",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
   "url": "https://addester.github.io/geo-no/",
   "downloadUrl": "https://github.com/addester/geo-no/releases/latest",
@@ -41,7 +41,7 @@
     { "@type": "Question", "name": "Can I block Instagram Reels from a specific country?",
       "acceptedAnswer": { "@type": "Answer", "text": "Yes. Since version 0.2 Geo No also checks Reels on instagram.com/reels, using the caption, tagged location, audio name and the account's bio. No API key is needed for Instagram." } },
     { "@type": "Question", "name": "Does it work in the YouTube app on my phone?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Not yet. Geo No works on youtube.com in Chrome, Edge, Brave and other Chromium browsers. An Android version is on the roadmap." } }
+      "acceptedAnswer": { "@type": "Answer", "text": "On Android, yes: the free Geo No Android app filters Reels and Shorts inside the Instagram and YouTube apps. On iPhone, Apple does not allow that, so Geo No offers a web app with a filtered YouTube Shorts feed." } }
   ]
 }
 </script>
@@ -110,7 +110,7 @@ footer { padding: 40px 0 56px; color: var(--muted); font-size: 14px; border-top:
 <div class="wrap">
   <nav>
     <a class="logo" href="./"><img src="img/icon128.png" alt="">Geo No</a>
-    <div class="links"><a href="#how">How it works</a><a href="#install">Install</a><a href="#faq">FAQ</a><a href="https://github.com/addester/geo-no">GitHub</a></div>
+    <div class="links"><a href="#how">How it works</a><a href="#install">Install</a><a href="#mobile">Phone</a><a href="#faq">FAQ</a><a href="https://github.com/addester/geo-no">GitHub</a></div>
   </nav>
 
   <header class="hero">
@@ -121,7 +121,7 @@ footer { padding: 40px 0 56px; color: var(--muted); font-size: 14px; border-top:
         <a class="btn primary" href="https://github.com/addester/geo-no/releases/latest">Download free</a>
         <a class="btn ghost" href="#install">Install guide</a>
       </div>
-      <p class="fine">Chrome · Edge · Brave · Arc · Open source (MIT) · No account, no tracking</p>
+      <p class="fine">Chrome · Edge · Brave · <a href="#android">Android app</a> · <a href="app/">iPhone web app</a> · Open source (MIT) · No account, no tracking</p>
     </div>
     <div class="shot"><img src="img/hero.png" alt="A YouTube Short from India hidden by Geo No, with Next Short, Show anyway and Allow this channel buttons"></div>
   </header>
@@ -168,6 +168,32 @@ footer { padding: 40px 0 56px; color: var(--muted); font-size: 14px; border-top:
     </div>
   </section>
 
+  <section id="mobile">
+    <h2>On your phone</h2>
+    <p class="sub">Two free options. Neither needs an app store or an account.</p>
+    <div class="two">
+      <div class="card" id="android">
+        <div class="n">ANDROID APP · BETA</div>
+        <h3>Works inside the real Instagram and YouTube apps</h3>
+        <p>Geo No reads the caption, account name and hashtags shown on each Reel or Short and swipes past (or covers) the ones from countries you block. Everything runs on your phone, with no internet requests at all.</p>
+        <ol class="steps" style="margin-top:14px;font-size:15px">
+          <li>Download <a href="https://github.com/addester/geo-no/releases/latest/download/geo-no-android.apk"><b>geo-no-android.apk</b></a> on your phone and open it. Allow "install unknown apps" for your browser if asked.</li>
+          <li>Open Geo No, choose countries, then tap <b>Open Accessibility settings</b> and switch Geo No on.</li>
+          <li>Greyed out? On Android 13+ open <b>App info → ⋮ → Allow restricted settings</b> first (the app has a button for this).</li>
+          <li>Open Instagram Reels or YouTube Shorts and scroll.</li>
+        </ol>
+        <p class="fine">Android 7 or newer. Open source, about 150 KB.</p>
+      </div>
+      <div class="card" id="iphone">
+        <div class="n">WEB APP · IPHONE &amp; ANDROID</div>
+        <h3>A Shorts feed without the countries you skip</h3>
+        <p>Open the web app, add a free YouTube API key once, and swipe through YouTube Shorts with your blocked countries filtered out. Add it to your home screen and it opens like an app.</p>
+        <p style="margin-top:14px"><a class="btn primary" href="app/">Open the web app</a></p>
+        <p class="fine">iPhone doesn't let any app look inside Instagram or YouTube, so on iPhone this is a separate feed (YouTube Shorts only). On iPhone: Safari → Share → Add to Home Screen.</p>
+      </div>
+    </div>
+  </section>
+
   <section id="faq">
     <h2>Questions</h2>
     <details open><summary>How do I block YouTube Shorts from a specific country?</summary><p>YouTube has no built-in country filter. Install Geo No, choose the countries you don't want to see, and it skips or blurs matching Shorts as you scroll.</p></details>
@@ -175,7 +201,7 @@ footer { padding: 40px 0 56px; color: var(--muted); font-size: 14px; border-top:
     <details><summary>Is it accurate?</summary><p>With a free YouTube API key, very. Without one, it only sees titles and channel names, so creators who write in English and don't state a country can slip through. If something is blocked by mistake, click "Allow this channel".</p></details>
     <details><summary>Can I block Instagram Reels from a country?</summary><p>Yes. Geo No checks Reels on instagram.com/reels using the caption, tagged location, audio name and the account's bio, and skips or blurs the ones from countries you've blocked. No API key is needed for Instagram.</p></details>
     <details><summary>Does Geo No collect my data?</summary><p>No. There's no server and no account. Settings stay in your browser, and the only requests go to YouTube, Google's YouTube Data API and instagram.com. Read the <a href="privacy.html">privacy policy</a>.</p></details>
-    <details><summary>Does it work on my phone or in the YouTube / Instagram app?</summary><p>Not yet. It works on youtube.com and instagram.com in Chrome, Edge, Brave and other Chromium browsers. An Android app is on the roadmap.</p></details>
+    <details><summary>Does it work on my phone?</summary><p>Yes. On Android, the free <a href="#android">Geo No app</a> skips or covers Reels and Shorts inside the real Instagram and YouTube apps. On iPhone, Apple doesn't let any app do that, so use the <a href="app/">Geo No web app</a>: a YouTube Shorts feed with your blocked countries filtered out.</p></details>
   </section>
 
   <footer>

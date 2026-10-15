@@ -12,3 +12,10 @@ for (const c of cases) {
 }
 console.log(fail ? `${fail} FAILED` : `all ${cases.length} passed`);
 process.exitCode = fail ? 1 : 0;
+
+// The web app ships its own copy of the classifier; keep it identical.
+const fs = require('fs');
+const path = require('path');
+const a = fs.readFileSync(path.join(__dirname, '../extension/classifier.js'), 'utf8');
+const b = fs.readFileSync(path.join(__dirname, '../docs/app/classifier.js'), 'utf8');
+if (a !== b) { console.log('FAIL docs/app/classifier.js differs from extension/classifier.js (copy it over)'); process.exitCode = 1; }

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Geo No – Shorts without the countries you skip</title>
+<meta name="description" content="A YouTube Shorts feed for iPhone and Android with the countries you choose filtered out. Free, private, no account.">
+<meta name="theme-color" content="#0f0f0f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Geo No">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <!-- Feed -->
+  <main id="feed" aria-label="Shorts feed"></main>
+  <div id="player-wrap" aria-hidden="true"><div id="player"></div></div>
+  <button id="tap" aria-label="Play, pause or unmute"></button>
+  <div id="caption" hidden><div class="channel"></div><div class="title"></div></div>
+
+  <header id="top">
+    <div class="brand"><img src="icon-192.png" alt=""><span>Geo No</span></div>
+    <span id="hiddenCount" class="pill" hidden></span>
+    <button id="openSettings" class="icon-btn" aria-label="Settings">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+    </button>
+  </header>
+  <div id="soundHint" hidden>Tap to turn sound on</div>
+  <div id="status" role="status"></div>
+
+  <!-- Settings sheet -->
+  <section id="settings" hidden aria-label="Settings">
+    <div class="sheet">
+      <div class="sheet-head">
+        <div class="brand dark"><img src="icon-192.png" alt=""><span>Geo No</span></div>
+        <button id="closeSettings" class="text-btn">Done</button>
+      </div>
+      <p class="muted">A Shorts feed with the countries you choose filtered out. Runs in your browser: no account, no tracking.</p>
+
+      <h2>Countries to hide</h2>
+      <div id="chips" class="chips"></div>
+      <div class="picker">
+        <input id="countrySearch" type="text" placeholder="Add a country…" autocomplete="off">
+        <div id="countryResults" class="results" hidden></div>
+      </div>
+      <p class="small muted">★ also detected by language, script and hashtags.</p>
+
+      <h2>What to watch</h2>
+      <div id="topics" class="chips selectable"></div>
+      <label class="row">Shorts popular in
+        <select id="region"></select>
+      </label>
+
+      <h2>Sensitivity</h2>
+      <div class="seg" data-key="sensitivity"><button data-v="low">Low</button><button data-v="medium">Medium</button><button data-v="high">High</button></div>
+
+      <h2>YouTube API key <span class="muted">(needed, free)</span></h2>
+      <p class="small muted">YouTube only lets apps list Shorts through its free Data API. Get your own key once and it stays on this device.</p>
+      <ol class="small">
+        <li>Open <a href="https://console.cloud.google.com/apis/library/youtube.googleapis.com" target="_blank" rel="noopener">YouTube Data API v3</a> in Google Cloud and tap <b>Enable</b> (create a project if asked).</li>
+        <li>Open <a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noopener">Credentials</a> → <b>Create credentials → API key</b>. Under API restrictions tick <b>YouTube Data API v3</b>. Leave application restrictions on <b>None</b>.</li>
+        <li>Copy the key (starts with <code>AIza</code>) and paste it here.</li>
+      </ol>
+      <div class="keyrow">
+        <input id="apiKey" type="password" placeholder="AIza…" autocomplete="off" spellcheck="false">
+        <button id="saveKey" class="primary">Save</button>
+      </div>
+      <p id="keyStatus" class="small muted"></p>
+
+      <h2>Install</h2>
+      <p class="small muted" id="installHelp"></p>
+      <button id="installBtn" class="primary" hidden>Add Geo No to home screen</button>
+
+      <h2>More</h2>
+      <p class="small muted">On Android, the <a href="../#android">Geo No app</a> also filters Reels and Shorts inside the real Instagram and YouTube apps. On a computer, use the <a href="../">browser extension</a>.</p>
+      <p class="small muted"><a href="../privacy.html">Privacy</a> · <a href="https://github.com/addester/geo-no">Open source on GitHub</a></p>
+    </div>
+  </section>
+
+  <script src="classifier.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
