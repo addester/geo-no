@@ -23,7 +23,8 @@
     box.appendChild(el);
   });
 
+  const sites = [s.youtube !== false && 'YouTube Shorts', s.instagram !== false && 'Instagram Reels'].filter(Boolean);
   document.getElementById('modeLine').textContent =
-    `${s.mode === 'skip' ? 'Auto-skipping' : 'Blurring'} matches · ${s.sensitivity} sensitivity · ` +
-    (s.apiKey ? 'YouTube API on' : 'no API key (less accurate)');
+    `${s.mode === 'skip' ? 'Auto-skipping' : 'Blurring'} matches on ${sites.join(' + ') || 'no sites'} · ` +
+    `${s.sensitivity} sensitivity · ` + (s.apiKey ? 'YouTube API on' : 'no YouTube API key (less accurate)');
 })();

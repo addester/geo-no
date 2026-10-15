@@ -23,17 +23,17 @@ li { margin-bottom: 6px; }
 <main>
   <p><a href="./">← Geo No</a></p>
   <h1>Privacy Policy</h1>
-  <p class="muted">Last updated: 13 October 2026</p>
+  <p class="muted">Last updated: 15 October 2026</p>
 
-  <p>Geo No is a browser extension that skips or hides YouTube Shorts from countries you choose. It has no servers, no accounts and no analytics. <b>We do not collect, store, sell or share any personal data.</b></p>
+  <p>Geo No is a browser extension that skips or hides YouTube Shorts and Instagram Reels from countries you choose. It has no servers, no accounts and no analytics. <b>We do not collect, store, sell or share any personal data.</b></p>
 
   <h2>What is stored, and where</h2>
   <p>All of the following stays on your device, in your browser's extension storage. It's synced only through your own browser account if you have Chrome Sync turned on.</p>
   <ul>
-    <li>Your settings: blocked countries, skip/blur mode, sensitivity and allowed channels.</li>
+    <li>Your settings: blocked countries, which sites to filter, skip/blur mode, sensitivity and allowed channels/accounts.</li>
     <li>Your YouTube Data API key, if you add one.</li>
-    <li>A cache of channel IDs with their declared country and description, so the extension doesn't look the same channel up twice.</li>
-    <li>Daily counters of how many Shorts were checked and blocked, shown in the popup.</li>
+    <li>A cache of YouTube channels and Instagram accounts with their declared country/city and description, so the extension doesn't look the same one up twice.</li>
+    <li>Daily counters of how many Shorts and Reels were checked and blocked, shown in the popup.</li>
   </ul>
 
   <h2>Network requests</h2>
@@ -41,12 +41,14 @@ li { margin-bottom: 6px; }
   <ul>
     <li><b>YouTube oEmbed</b> (<code>youtube.com/oembed</code>): the video's title and channel name.</li>
     <li><b>YouTube Data API v3</b> (<code>googleapis.com</code>), only if you add your own API key: the video's title, description, tags and language, plus the channel's declared country and description.</li>
+    <li><b>Instagram</b> (<code>instagram.com</code>), only while you are viewing a Reel there: the same read-only endpoints the Instagram website itself calls, to read the Reel's caption, tagged location and audio name, and the account's name, bio and business city/country. These requests use your existing Instagram session in the browser; Geo No never sees your password, never posts, likes or follows anything, and sends nothing anywhere else.</li>
   </ul>
-  <p>These requests go directly from your browser to Google. They are covered by <a href="https://policies.google.com/privacy">Google's Privacy Policy</a> and the <a href="https://www.youtube.com/t/terms">YouTube Terms of Service</a>. Geo No's use of YouTube API Services is subject to the <a href="https://developers.google.com/youtube/terms/api-services-terms-of-service">YouTube API Services Terms</a>.</p>
+  <p>These requests go directly from your browser to Google or Instagram. Instagram requests are covered by <a href="https://privacycenter.instagram.com/policy">Instagram's Privacy Policy</a>. YouTube requests are covered by <a href="https://policies.google.com/privacy">Google's Privacy Policy</a> and the <a href="https://www.youtube.com/t/terms">YouTube Terms of Service</a>. Geo No's use of YouTube API Services is subject to the <a href="https://developers.google.com/youtube/terms/api-services-terms-of-service">YouTube API Services Terms</a>.</p>
 
   <h2>Permissions</h2>
   <ul>
     <li><b>Access to youtube.com</b>: to see which Short is playing, and to pause, skip or blur it.</li>
+    <li><b>Access to instagram.com</b>: to see which Reel is playing, read its public details, and pause, skip or blur it.</li>
     <li><b>Access to googleapis.com</b>: to call the YouTube Data API with your key.</li>
     <li><b>Storage</b>: to save the settings and cache listed above.</li>
   </ul>

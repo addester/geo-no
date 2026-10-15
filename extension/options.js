@@ -72,6 +72,13 @@
     paint();
   });
 
+  // ---------- sites ----------
+  ['youtube', 'instagram'].forEach((site) => {
+    const box = $('site-' + site);
+    box.checked = s[site] !== false;
+    box.onchange = () => save({ [site]: box.checked });
+  });
+
   // ---------- API key ----------
   const keyIn = $('apiKey'), status = $('keyStatus');
   keyIn.value = s.apiKey;

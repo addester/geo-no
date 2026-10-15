@@ -6,10 +6,10 @@ Upload: `dist/geo-no-store-upload.zip` (run `bash scripts/build.sh`, or take it 
 ## Store listing tab
 
 **Name** (from manifest)
-Geo No – Shorts Country Filter
+Geo No – Shorts & Reels Country Filter
 
 **Summary** (max 132 characters)
-Block YouTube Shorts from countries you choose. Auto-skip or blur Shorts from India or anywhere else. Private, no account.
+Block YouTube Shorts & Instagram Reels from countries you choose. Auto-skip or blur them. Private, no account.
 
 **Category**
 Productivity *(alternative: Social & Communication)*
@@ -19,25 +19,27 @@ English
 
 **Description**
 ```
-Geo No skips or hides YouTube Shorts from the countries you choose.
+Geo No skips or hides YouTube Shorts and Instagram Reels from the countries you choose.
 
-YouTube has no country filter, and every Short comes from the same servers, so normal blockers can't help. Geo No checks each Short as it appears and decides where it's from using:
+YouTube and Instagram have no country filter, and every Short or Reel comes from the same servers, so normal blockers can't help. Geo No checks each one as it appears and decides where it's from using:
 • the channel's declared country
+• the Reel's tagged location (Instagram)
 • the writing script (Devanagari, Tamil, Telugu, Bengali, Thai, Hangul…)
 • the spoken language
 • romanised Hindi ("Hinglish") words
 • hashtags and place names (#mumbai, #desi, #bollywood…)
 
 FEATURES
-• Block Shorts from any of 240+ countries and territories, e.g. block Indian YouTube Shorts
-• Auto-skip to the next Short, or blur with "Show anyway"
-• "Allow this channel" when something is blocked by mistake
+• Works on YouTube Shorts and Instagram Reels (turn either on or off)
+• Block content from any of 240+ countries and territories, e.g. block Indian Shorts and Reels
+• Auto-skip to the next Short or Reel, or blur with "Show anyway"
+• "Allow this channel / account" when something is blocked by mistake
 • Low / Medium / High sensitivity
-• Daily counter of Shorts checked and blocked
-• Optional free YouTube API key for much higher accuracy (step-by-step guide built in)
+• Daily counter of Shorts and Reels checked and blocked
+• Optional free YouTube API key for much higher accuracy on YouTube (step-by-step guide built in). Instagram needs no key.
 
 PRIVATE BY DESIGN
-No account, no server, no analytics. Settings stay in your browser. The only requests go to YouTube and Google's YouTube Data API.
+No account, no server, no analytics. Settings stay in your browser. The only requests go to YouTube, Google's YouTube Data API and instagram.com.
 
 OPEN SOURCE
 MIT licensed: https://github.com/addester/geo-no
@@ -55,11 +57,12 @@ Report problems: https://github.com/addester/geo-no/issues
 ## Privacy practices tab
 
 **Single purpose**
-Hides or skips YouTube Shorts that come from countries the user has chosen to block.
+Hides or skips YouTube Shorts and Instagram Reels that come from countries the user has chosen to block.
 
 **Permission justifications**
 - `storage`: saves the user's chosen countries, display mode, sensitivity, allowed channels, optional API key, a cache of channel countries and daily counters.
 - Host permission `https://www.youtube.com/*`: detects which Short is playing, pauses it while it's checked, and skips or blurs it. Also reads public title/channel data from YouTube's oEmbed endpoint.
+- Host permission `https://www.instagram.com/*`: detects which Reel is playing, pauses it while it's checked, skips or blurs it, and reads the Reel's caption, location and the account's bio from instagram.com's own web endpoints using the user's existing session.
 - Host permission `https://www.googleapis.com/*`: calls the YouTube Data API v3 with the user's own API key to read the video's language and the channel's declared country.
 
 **Remote code:** No, I am not using remote code.

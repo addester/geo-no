@@ -1,7 +1,7 @@
 /* Shared by popup and options pages. */
 const GEONO_DEFAULTS = {
   enabled: true, countries: ['IN'], sensitivity: 'medium', mode: 'skip', apiKey: '',
-  allowChannels: [], blockChannels: [],
+  allowChannels: [], blockChannels: [], youtube: true, instagram: true,
 };
 
 const ISO_CODES = ('AD AE AF AG AI AL AM AO AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BW BY BZ ' +

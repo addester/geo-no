@@ -1,15 +1,15 @@
 <p align="center"><img src="extension/icons/icon128.png" width="88" alt="Geo No logo"></p>
 
-<h1 align="center">Geo No: Block YouTube Shorts by Country</h1>
+<h1 align="center">Geo No: Block YouTube Shorts &amp; Instagram Reels by Country</h1>
 
-<p align="center"><b>A free, open-source Chrome extension that hides or skips YouTube Shorts from countries you choose not to watch.</b><br>
-Tired of your Shorts feed being full of content from one country? Pick the country and Geo No filters it out as you scroll.</p>
+<p align="center"><b>A free, open-source Chrome extension that hides or skips YouTube Shorts and Instagram Reels from countries you choose not to watch.</b><br>
+Tired of your Shorts or Reels feed being full of content from one country? Pick the country and Geo No filters it out as you scroll.</p>
 
 <p align="center">
   <a href="https://github.com/addester/geo-no/releases/latest"><b>⬇ Download</b></a> ·
   <a href="https://addester.github.io/geo-no/">Website</a> ·
   <a href="#install-2-minutes">Install guide</a> ·
-  <a href="#how-it-decides-where-a-short-is-from">How it works</a> ·
+  <a href="#how-it-decides-where-a-short-or-reel-is-from">How it works</a> ·
   <a href="docs/privacy.html">Privacy</a>
 </p>
 
@@ -19,10 +19,11 @@ Tired of your Shorts feed being full of content from one country? Pick the count
 
 ## What it does
 
-- **Block Shorts from any country.** For example, block Indian YouTube Shorts if you're in the US, or block content from any of 240+ countries and territories.
-- **Skip or blur:** auto-skip to the next Short, or blur it with *Show anyway* and *Allow this channel* buttons.
-- **Works as you scroll:** each Short is paused for a split second while Geo No checks it, so blocked content never plays.
-- **Allow list:** mark a channel as fine and it's never blocked again.
+- **YouTube Shorts and Instagram Reels.** Works on youtube.com/shorts and instagram.com/reels. Turn either site on or off in settings.
+- **Block content from any country.** For example, block Indian Shorts and Reels if you're in the US, or block content from any of 240+ countries and territories.
+- **Skip or blur:** auto-skip to the next Short or Reel, or blur it with *Show anyway* and *Allow this channel* buttons.
+- **Works as you scroll:** each Short or Reel is paused for a split second while Geo No checks it, so blocked content never plays.
+- **Allow list:** mark a channel or Instagram account as fine and it's never blocked again.
 - **Private:** no account, no tracking, no server. Everything stays in your browser.
 - Works in **Chrome, Edge, Brave, Arc, Opera** and other Chromium browsers.
 
@@ -57,17 +58,20 @@ Without a key, Geo No only sees each Short's **title and channel name**. With a 
 
 The free quota (10,000 units/day) covers roughly 5,000 Shorts a day.
 
-## How it decides where a Short is from
+## How it decides where a Short or Reel is from
 
-There's no "country" label on a video, and the network can't tell either: every Short comes from the same YouTube servers. So Geo No looks at each Short as it appears and weighs several clues:
+There's no "country" label on a video, and the network can't tell either: every Short and Reel comes from the same YouTube or Instagram servers. So Geo No looks at each one as it appears and weighs several clues:
 
 | Signal | Example | Strength |
 |---|---|---|
-| Channel's declared country *(API key)* | `country: IN` | Decisive |
+| Channel's declared country *(YouTube API key)* or Instagram business address | `country: IN` | Decisive |
+| Tagged location *(Instagram)* | `Marine Drive, Mumbai` | Strong |
 | Writing script | Devanagari, Telugu, Tamil, Gujarati, Bengali, Thai, Hangul… | Strong |
 | Spoken / default language *(API key)* | `hi`, `ta`, `te`, `mr`, `ko`, `ja`… | Strong |
 | Romanised Hindi ("Hinglish") | bhai, yaar, kya, nahi… | Medium |
-| Hashtags and place names | `#mumbai #desi #bollywood #ipl` | Medium |
+| Hashtags and place names (caption, bio, audio name) | `#mumbai #desi #bollywood #ipl` | Medium |
+
+On Instagram no API key is needed: Geo No reads the Reel's caption, tagged location, audio name and the account's bio from instagram.com while you browse.
 
 The clues are combined into a 0–1 score and compared with your **sensitivity** (Low 0.85 · Medium 0.70 · High 0.50). If a channel says it's based in another country, the content clues count for half.
 
@@ -75,19 +79,21 @@ Rich language profiles exist for 🇮🇳 India, 🇵🇰 Pakistan, 🇧🇩 Ban
 
 ## Privacy
 
-Geo No has no server and collects nothing. Settings, your API key and the channel cache live in your browser's extension storage. The only network requests go to Google's YouTube Data API (with your own key) and YouTube's public oEmbed endpoint, to read a Short's title and channel. Full policy: [docs/privacy.html](docs/privacy.html).
+Geo No has no server and collects nothing. Settings, your API key and the channel cache live in your browser's extension storage. The only network requests go to Google's YouTube Data API (with your own key) and YouTube's public oEmbed endpoint, to read a Short's title and channel, and, on Instagram, to the same read-only instagram.com endpoints the Instagram website itself uses, to read the Reel you're viewing (caption, tagged location, audio, account bio). Full policy: [docs/privacy.html](docs/privacy.html).
 
 ## Known limits
 
-- **Browser only.** It works on youtube.com, not in the YouTube mobile app.
-- YouTube changes its page layout often. If skipping stops working, please [open an issue](https://github.com/addester/geo-no/issues).
+- **Browser only.** It works on youtube.com and instagram.com, not in the YouTube or Instagram mobile apps.
+- **Instagram:** works on the Reels tab (`instagram.com/reels`) and single Reel pages while you're logged in. Reels inside the home feed aren't checked yet.
+- YouTube and Instagram change their page layouts often. If skipping stops working, please [open an issue](https://github.com/addester/geo-no/issues).
 - Creators with English-only titles and no declared country can slip through without an API key.
 
 ## Roadmap
 
 - [x] YouTube Shorts (Chrome / Edge / Brave)
+- [x] Instagram Reels on the web (v0.2)
 - [ ] Chrome Web Store and Edge Add-ons listing
-- [ ] Instagram Reels on the web
+- [ ] Instagram Reels in the home feed, and the "Account based in" country
 - [ ] Hide Shorts shelves on the YouTube home page and search results
 - [ ] Android app (Instagram Reels and YouTube Shorts)
 - [ ] Shared, opt-in channel→country database
@@ -106,7 +112,9 @@ Load the `extension/` folder with **Load unpacked**, then click ↻ on the exten
 
 | File | What it does |
 |---|---|
-| `extension/content.js` | Watches the Shorts player, pauses while checking, skips or blurs |
+| `extension/player-ui.js` | Shared on-page UI: pauses while checking, blur card, toast, skip flow |
+| `extension/content.js` | YouTube: watches the Shorts player and reads the page |
+| `extension/content-instagram.js` | Instagram: watches Reels, reads caption / location / audio / bio |
 | `extension/background.js` | Fetches metadata, caches channels, applies the allow list, counts stats |
 | `extension/classifier.js` | Detection logic. Pure JS, testable in Node |
 | `extension/options.*`, `popup.*` | Settings page and toolbar popup |
@@ -115,4 +123,4 @@ Load the `extension/` folder with **Load unpacked**, then click ↻ on the exten
 
 [MIT](LICENSE) © Aadi Juvekar
 
-<sub>Keywords: block YouTube Shorts by country · hide Indian Shorts · filter YouTube Shorts by country · block content from India on YouTube · country filter for Shorts · YouTube Shorts blocker extension · remove regional content from YouTube feed</sub>
+<sub>Keywords: block YouTube Shorts by country · hide Indian Shorts · filter YouTube Shorts by country · block content from India on YouTube · country filter for Shorts · YouTube Shorts blocker extension · block Instagram Reels by country · hide Indian Reels · Instagram Reels country filter · remove regional content from YouTube and Instagram feed</sub>

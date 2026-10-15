@@ -2,8 +2,9 @@
  * Geo No – origin classifier.
  * Pure functions, no browser APIs, so it runs in the service worker and in Node tests.
  *
- * Input: metadata about one Short (title, description, tags, channel name, channel
- * description, declared channel country, audio language) + the user's blocked countries.
+ * Input: metadata about one Short or Reel (title/caption, description, tags, channel/account
+ * name, channel description/bio, declared country, audio language, tagged location, audio
+ * track name) + the user's blocked countries.
  * Output: { block, country, score, reasons[] }
  */
 (function (root) {
@@ -147,7 +148,7 @@
 
     // "Strong" text fields: things the creator wrote about this video/channel.
     const text = [meta.title, meta.description, meta.channelTitle, meta.channelDescription,
-      (meta.tags || []).join(' ')].filter(Boolean).join('\n');
+      (meta.tags || []).join(' '), meta.location, meta.audioTitle].filter(Boolean).join('\n');
 
     // 1) Scripts
     for (const [script, weight] of Object.entries(profile.scripts || {})) {
@@ -200,13 +201,24 @@
       reasons.push(`mentions: ${wordHits.slice(0, 3).join(', ')}`);
     }
 
+    // 5) Tagged location (Instagram Reels: "Mumbai, Maharashtra", "Taj Mahal, Agra, India")
+    if (meta.location) {
+      const locToks = new Set(tokenize(meta.location));
+      const locSquash = squash(meta.location);
+      const hit = [...kw].find((k) => (k.length >= 4 && locToks.has(k)) || (k.length >= 6 && locSquash.includes(k)));
+      if (hit) {
+        strengths.push(0.85);
+        reasons.push(`location: ${String(meta.location).slice(0, 40)}`);
+      }
+    }
+
     return { score: combine(strengths), reasons };
   }
 
   /**
    * Main entry point.
    * @param meta {title, description, tags[], channelTitle, channelDescription,
-   *              channelCountry, audioLanguage, defaultLanguage}
+   *              channelCountry, audioLanguage, defaultLanguage, location, audioTitle}
    * @param settings {countries: ['IN', ...], sensitivity: 'low'|'medium'|'high'}
    */
   function classify(meta, settings) {

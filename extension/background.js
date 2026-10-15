@@ -1,4 +1,4 @@
-/* Geo No – service worker: fetches Short metadata, classifies it, caches verdicts. */
+/* Geo No – service worker: fetches Short/Reel metadata, classifies it, caches verdicts. */
 importScripts('classifier.js');
 
 const DEFAULTS = {
@@ -7,11 +7,13 @@ const DEFAULTS = {
   sensitivity: 'medium', // low | medium | high
   mode: 'skip',          // skip | blur
   apiKey: '',
-  allowChannels: [],     // [{key, name}] never blocked
+  allowChannels: [],     // [{key, name}] never blocked (Instagram keys are 'ig:<username>')
   blockChannels: [],     // [{key, name}] always blocked
+  youtube: true,         // check YouTube Shorts
+  instagram: true,       // check Instagram Reels
 };
 
-const videoCache = new Map();   // videoId -> verdict (session only; settings changes clear it)
+const videoCache = new Map();   // videoId / 'ig:<shortcode>' -> verdict (session only; settings changes clear it)
 let channelCache = null;        // channelId -> {country, title, description, ts}
 const CHANNEL_TTL = 30 * 24 * 3600 * 1000;
 
@@ -105,19 +107,38 @@ async function verdictFor(videoId, hint) {
   }
 
   const keys = channelKeys(meta, hint);
+  const verdict = judge(meta, keys, settings);
+  verdict.channel = { key: keys[0] || '', name: meta.channelTitle || meta.channelHandle || '' };
+  verdict.source = source;
+  videoCache.set(videoId, verdict);
+  return verdict;
+}
+
+/** Allow/block lists first, then the classifier. */
+function judge(meta, keys, settings) {
   const inList = (list) => list.some((c) => keys.includes(String(c.key).toLowerCase()));
   let verdict;
   if (inList(settings.allowChannels)) {
-    verdict = { block: false, score: 0, reasons: ['channel on your allow list'] };
+    verdict = { block: false, score: 0, reasons: ['on your allow list'] };
   } else if (inList(settings.blockChannels)) {
-    verdict = { block: true, score: 1, country: null, reasons: ['channel on your block list'] };
+    verdict = { block: true, score: 1, country: null, reasons: ['on your block list'] };
   } else {
     verdict = GeoNoClassifier.classify(meta, settings);
   }
-  verdict.channel = { key: keys[0] || '', name: meta.channelTitle || meta.channelHandle || '' };
   verdict.countryName = verdict.country ? GeoNoClassifier.countryName(verdict.country) : '';
-  verdict.source = source;
-  videoCache.set(videoId, verdict);
+  return verdict;
+}
+
+/** Instagram: the content script gathers metadata (same-origin requests), we just judge it. */
+async function verdictForMeta(id, meta, channel) {
+  const settings = await getSettings();
+  if (!settings.enabled || !settings.countries.length) return { block: false, reasons: ['disabled'] };
+  if (videoCache.has(id)) return videoCache.get(id);
+  const keys = channel && channel.key ? [String(channel.key).toLowerCase()] : [];
+  const verdict = judge(meta || {}, keys, settings);
+  verdict.channel = channel || { key: '', name: '' };
+  verdict.source = 'instagram';
+  videoCache.set(id, verdict);
   return verdict;
 }
 
@@ -147,6 +168,13 @@ chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
         const v = await verdictFor(msg.videoId, msg.hint);
         return v;
       }
+      case 'checkMeta': return verdictForMeta(msg.id, msg.meta, msg.channel);
+      case 'getChannel': {
+        const cache = await loadChannelCache();
+        const c = cache[msg.key];
+        return c && Date.now() - c.ts < CHANNEL_TTL ? c : null;
+      }
+      case 'putChannel': await saveChannel(msg.key, msg.data); return true;
       case 'counted': await bumpStats(msg.blocked); return true;
       case 'allowChannel': await addToList('allowChannels', msg.channel); return true;
       case 'blockChannel': await addToList('blockChannels', msg.channel); return true;

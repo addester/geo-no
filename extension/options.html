@@ -28,6 +28,8 @@
     .keyrow button { flex: none; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--soft); cursor: pointer; }
     #keyStatus.ok { color: var(--ok); }
     #keyStatus.bad { color: var(--accent); }
+    label.site { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+    label.site .switch { display: inline-block; }
     .saved { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--fg); color: var(--bg);
       padding: 8px 16px; border-radius: 8px; opacity: 0; transition: opacity .2s; pointer-events: none; }
     .saved.show { opacity: 1; }
@@ -37,7 +39,7 @@
 <main>
   <header>
     <div class="brand"><img src="icons/icon48.png" alt=""><h1>Geo No</h1></div>
-    <p class="muted">Choose countries you don't want to watch YouTube Shorts from. Geo No checks each Short as it appears and skips or hides it.</p>
+    <p class="muted">Choose countries you don't want to watch YouTube Shorts or Instagram Reels from. Geo No checks each one as it appears and skips or hides it.</p>
   </header>
 
   <section>
@@ -47,13 +49,20 @@
       <input type="text" id="search" placeholder="Add a country…" autocomplete="off">
       <div class="results" id="results" hidden></div>
     </div>
-    <p class="note muted"><small>Countries marked ★ also get language, script and hashtag detection. All others are matched by the channel's declared country (needs an API key) and #countryname hashtags.</small></p>
+    <p class="note muted"><small>Countries marked ★ also get language, script and hashtag detection. All others are matched by the channel's declared country (YouTube API key, or an Instagram business address), tagged locations and #countryname hashtags.</small></p>
   </section>
 
   <section>
     <h2>Behaviour</h2>
     <div class="opt">
-      <div><b>When a Short matches</b><p class="muted"><small>Skip jumps to the next one; Blur shows a card with an option to watch anyway.</small></p></div>
+      <div><b>Where to filter</b><p class="muted"><small>Instagram Reels work on instagram.com/reels while you're logged in. No key needed.</small></p></div>
+      <div style="display:flex;gap:18px;flex-wrap:wrap">
+        <label class="site"><span class="switch"><input type="checkbox" id="site-youtube"><span></span></span> YouTube Shorts</label>
+        <label class="site"><span class="switch"><input type="checkbox" id="site-instagram"><span></span></span> Instagram Reels</label>
+      </div>
+    </div>
+    <div class="opt">
+      <div><b>When a Short or Reel matches</b><p class="muted"><small>Skip jumps to the next one; Blur shows a card with an option to watch anyway.</small></p></div>
       <div class="seg" data-key="mode"><button data-v="skip">Skip</button><button data-v="blur">Blur</button></div>
     </div>
     <div class="opt">
@@ -63,7 +72,7 @@
   </section>
 
   <section>
-    <h2>YouTube API key <span class="muted" style="text-transform:none;letter-spacing:0">(recommended)</span></h2>
+    <h2>YouTube API key <span class="muted" style="text-transform:none;letter-spacing:0">(recommended for YouTube; not used for Instagram)</span></h2>
     <p class="muted" style="margin:0"><small>Without a key Geo No only sees each Short's title and channel name. With a free key it also reads the channel's country, description, tags and spoken language, which is much more accurate. The key stays in your browser.</small></p>
     <ol class="muted" style="font-size:12px">
       <li>Open <a href="https://console.cloud.google.com/apis/library/youtube.googleapis.com" target="_blank">Google Cloud Console → YouTube Data API v3</a> and click <b>Enable</b> (create a project if asked).</li>
@@ -86,7 +95,7 @@
 
   <section>
     <h2>Channel exceptions</h2>
-    <p class="muted" style="margin:0 0 12px"><small>Use "Allow this channel" on a blocked Short to add it here.</small></p>
+    <p class="muted" style="margin:0 0 12px"><small>Use "Allow this channel" / "Allow this account" on a blocked Short or Reel to add it here.</small></p>
     <b>Always allow</b>
     <div class="chips" id="allowList" style="margin-top:8px"></div>
   </section>

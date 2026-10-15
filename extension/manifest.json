@@ -1,13 +1,14 @@
 {
   "manifest_version": 3,
-  "name": "Geo No \u2013 Shorts Country Filter",
-  "version": "0.1.0",
-  "description": "Skip or blur YouTube Shorts from countries you choose not to watch.",
+  "name": "Geo No – Shorts & Reels Country Filter",
+  "version": "0.2.0",
+  "description": "Skip or blur YouTube Shorts and Instagram Reels from countries you choose not to watch.",
   "permissions": [
     "storage"
   ],
   "host_permissions": [
     "https://www.youtube.com/*",
+    "https://www.instagram.com/*",
     "https://www.googleapis.com/*"
   ],
   "background": {
@@ -19,7 +20,21 @@
         "https://www.youtube.com/*"
       ],
       "js": [
+        "player-ui.js",
         "content.js"
+      ],
+      "css": [
+        "content.css"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://www.instagram.com/*"
+      ],
+      "js": [
+        "player-ui.js",
+        "content-instagram.js"
       ],
       "css": [
         "content.css"
